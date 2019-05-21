@@ -1,5 +1,9 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -8,24 +12,37 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 public class GUITest {
 
+    public static void main(String[] args) throws InterruptedException {
+        Scanner in;
+        String path;
+        try {
+            in = new Scanner(new File("driverPath"));
+            path = in.nextLine();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+        System.setProperty("webdriver.chrome.driver", path);
+        WebDriver webDriver = new ChromeDriver();
 
+        webDriver.manage().window().maximize();
+        webDriver.manage().deleteAllCookies();
+        // 与浏览器同步非常重要，必须等待浏览器加载完毕
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
+        //打开目标地址
+        String url = "http://www.baidu.com";
+        webDriver.get(url);
 
-        public static void main(String[] args) throws InterruptedException {
-            Thread.sleep(3000);
-            System.setProperty("webdriver.chrome.driver", "G:\\chrome\\Chrome\\Application\\chromedriver.exe");
-            WebDriver webDriver = new ChromeDriver();
-
-            webDriver.manage().window().maximize();
-            webDriver.manage().deleteAllCookies();
-            // 与浏览器同步非常重要，必须等待浏览器加载完毕
-            webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-            //打开目标地址
-            String url="http://www.baidu.com";
-            webDriver.get(url);
+        Thread.sleep(1000);
+        webDriver.findElement(By.xpath("/html/body/div/div/div/div/div/form/span/input"))
+                .sendKeys("gbf\n");
+        Thread.sleep(3000);
+        webDriver.findElement(By.xpath("/html/body/div/div/div/div/div/h3/a"))
+                .click();
 
 
 //            //输入账号 密码并登陆系统
@@ -98,6 +115,6 @@ public class GUITest {
 //            //暂停五秒钟后关闭
 //            Thread.sleep(2000);
 //            webDriver.quit();
-        }
-    
+    }
+
 }
