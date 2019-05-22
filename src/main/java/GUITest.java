@@ -18,9 +18,15 @@ public class GUITest {
     public static void main(String[] args) throws InterruptedException {
         Scanner in;
         String path;
+        String username;
+        String password;
+        String picture;
         try {
-            in = new Scanner(new File("driverPath"));
+            in = new Scanner(new File("config"));
             path = in.nextLine();
+            username = in.nextLine();
+            password = in.nextLine();
+            picture = in.nextLine();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return;
@@ -34,87 +40,149 @@ public class GUITest {
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         //打开目标地址
-        String url = "http://www.baidu.com";
+        String url = "https://mail.sjtu.edu.cn";
         webDriver.get(url);
 
         Thread.sleep(1000);
-        webDriver.findElement(By.xpath("/html/body/div/div/div/div/div/form/span/input"))
-                .sendKeys("gbf\n");
-        Thread.sleep(3000);
-        webDriver.findElement(By.xpath("/html/body/div/div/div/div/div/h3/a"))
+        webDriver.findElement(By.xpath("//*[@id=\"user\"]"))
+                .sendKeys(username);
+        webDriver.findElement(By.xpath("//*[@id=\"pass\"]"))
+                .sendKeys(password);
+        webDriver.findElement(By.xpath("//*[@id=\"captcha\"]"))
+                .click();
+        Thread.sleep(7000);
+        webDriver.findElement(By.xpath("//*[@id=\"submit-button\"]"))
                 .click();
 
-
-//            //输入账号 密码并登陆系统
-//            Thread.sleep(1000);
-//            webDriver.findElement(By.xpath("/html/body/div/div/form/div[1]/div/div/input")).sendKeys("admin");
-//            webDriver.findElement(By.xpath("/html/body/div/div/form/div[2]/div/div/input")).sendKeys("123456");
-//            webDriver.findElement(By.cssSelector("html body div#app div.loginPage form.el-form.fromBox button.el-button.loginBtn.el-button--primary")).click();
-//
-//            //选择系统
-//            Thread.sleep(1000);
-//            webDriver.findElement(By.xpath("/html/body/div/div/div/div[1]/p")).click();
-//
-//            //展开基础信息管理菜单
-//            Thread.sleep(1000);
-//            webDriver.findElement(By.xpath("/html/body/div/div/div/div[1]/div[3]/ul/div[1]/li/div/span")).click();
-//            //点击科室管理菜单
-//            Thread.sleep(1000);
-//            webDriver.findElement(By.cssSelector(".is-opened > ul:nth-child(2) > li:nth-child(1)")).click();
-//
-//            //跳转到第2页
-//            Thread.sleep(1000);
-//            webDriver.findElement(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/div[2]/div[2]/div/div[2]/ul/li[2]")).click();
-//
-//            //点击新增按钮
-//            webDriver.findElement(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div[1]/div[1]/button")).click();
-//
-//            //根据规则随机生成文本框内容
-//            int random = new Random().nextInt(200000000);
-//            Thread.sleep(1000);
-//            webDriver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div[2]/div/div[3]/div/div[2]/form/div[1]/div[1]/div/div/input")).sendKeys(String.valueOf(random));
-//            Thread.sleep(1000);
-//            webDriver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div[2]/div/div[3]/div/div[2]/form/div[1]/div[2]/div/div[1]/input")).sendKeys("自动化测试-"+random);
-//
-//            //展开下拉框
-//            webDriver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div[2]/div/div[3]/div/div[2]/form/div[2]/div[1]/div/div/div[1]/span/span/i")).click();
-//            Thread.sleep(1000);
-//            //获取下拉框size
-//            List<WebElement> select1 = webDriver.findElements(By.cssSelector("div.el-select-dropdown:nth-child(4) > div:nth-child(1) > div:nth-child(1) > ul li"));
-//            //随机选择一个项目
-//            int selectItem1 = new Random().nextInt(select1.size())+1;
-//            webDriver.findElement(By.xpath("/html/body/div[3]/div[1]/div[1]/ul/li["+selectItem1+"]")).click();
-//
-//            //稍作停顿，然后保存
-//            Thread.sleep(1000);
-//            webDriver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div[2]/div/div[3]/div/div[3]/div/button[1]")).click();
-//
-//            //跳转到我的博客
-//            Thread.sleep(3000);
-//            webDriver.get("https://www.cnblogs.com/xiaochangwei");
-//
-//            webDriver.findElements(By.className("postTitle")).forEach(x -> {
-//                System.out.println(x.getText());
-//            });
-//
-//            Thread.sleep(1000);
-//            //打开标题为 通过Dockerfile构建镜像并发布web项目 的文章
-//            webDriver.findElement(By.partialLinkText("通过Dockerfile构建镜像并发布web项目")).click();
-//
-//            Thread.sleep(1000);
-//            //移动到底部
-//            //((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
-//            //移动到指定的坐标(相对当前的坐标移动)
-//            ((JavascriptExecutor) webDriver).executeScript("window.scrollBy(0, 700)");
-//            Thread.sleep(1000);
-//            //移动到窗口绝对位置坐标，如下移动到纵坐标1600像素位置
-//            ((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0, 1600)");
-//            Thread.sleep(1000);
-//            //移动到指定元素，且元素底部和窗口底部对齐 参考 https://www.cnblogs.com/testway/p/6693140.html
-//            ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(false);", webDriver.findElement(By.xpath("/html/body/div[2]/div[2]/div[1]/div/div[1]/div/div/div[2]/div[4]/div[3]/div[1]/a[5]/img")));
-//            //暂停五秒钟后关闭
-//            Thread.sleep(2000);
-//            webDriver.quit();
+        Briefcase(webDriver, url, picture);
+        Options(webDriver, url);
+//        Contacts(webDriver,url);
     }
 
+    private static void Briefcase(WebDriver webDriver, String url, String picture) throws InterruptedException {
+        Thread.sleep(3000);
+        //点击公文包
+        webDriver.findElement(By.xpath("//*[@id=\"zb__App__Briefcase_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击上传文件
+        webDriver.findElement(By.xpath("//*[@id=\"zb__BDLV-main__NEW_FILE_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //上传图片
+        webDriver.findElement(By.name("uploadFile"))
+                .sendKeys(picture);
+        Thread.sleep(2000);
+        //输入备注
+        webDriver.findElement(By.tagName("textarea"))
+                .sendKeys("test jpg");
+        Thread.sleep(2000);
+        //点击确定
+        List<WebElement> webElements = webDriver.findElement(By.className("DwtDialogButtonBar"))
+                .findElements(By.className("ZWidgetTitle"));
+        webElements.get(0).click();
+        Thread.sleep(5000);
+        //点击选中第一个文件
+        webDriver.findElement(By.xpath("//*[@id=\"zlhi__BDLV-main__se\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击删除
+        webDriver.findElement(By.xpath("//*[@id=\"zb__BDLV-main__DELETE_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击确定
+        webDriver.findElement(By.xpath("//*[@id=\"CONFIRM_DIALOG_button5_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击已删除邮件
+        webDriver.findElement(By.xpath("//*[@id=\"zti__main_Briefcase__3_textCell\"]"))
+                .click();
+        Thread.sleep(2000);
+        //
+        webDriver.findElement(By.xpath("//*[@id=\"zlhi__BDLV-main__se\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击永久删除
+        webDriver.findElement(By.xpath("//*[@id=\"zb__BDLV-main__DELETE_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击确定
+        webDriver.findElement(By.xpath("//*[@id=\"CONFIRM_DIALOG_button5_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        webDriver.get(url);
+    }
+
+    private static void Options(WebDriver webDriver, String url) throws InterruptedException {
+        Thread.sleep(3000);
+        //点击首选项
+        webDriver.findElement(By.xpath("//*[@id=\"zb__App__Options_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"zti__main_Options__PREF_PAGE_FILTERS_textCell\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击创建过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"zb__FRV__ADD_FILTER_RULE_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //输入过滤器名称
+        webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_name\"]"))
+                .sendKeys("律师函");
+        Thread.sleep(2000);
+        //输入筛选条件
+        webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_conditions\"]/tbody/tr/td[4]/div/input"))
+                .sendKeys("cxk");
+        Thread.sleep(2000);
+        //点击创建新的筛选条件
+        webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_conditions\"]/tbody/tr/td[6]/table/tbody/tr/td[1]"))
+                .click();
+        Thread.sleep(2000);
+        //输入新的筛选条件
+        webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_conditions\"]/tbody/tr[2]/td[4]/div/input"))
+                .sendKeys("ikun");
+        Thread.sleep(2000);
+        //点击确定创建过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_button2_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击移除过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"DwtChooserRemoveButton_1_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击添加可用过滤器中的待选过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"DwtChooserButton_1_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击运行过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"zb__FRV__RUN_FILTER_RULE_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击添加第一个筛选选项
+        webDriver.findElement(By.xpath("//*[@id=\"zti__ZmFilterRulesController_incoming__2_checkbox\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击添加第二个筛选选项
+        webDriver.findElement(By.xpath("//*[@id=\"zti__ZmFilterRulesController_incoming__5_checkbox\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击确定开始运行过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"ChooseFolderDialog_button2_title\"]"))
+                .click();
+        Thread.sleep(5000);
+        //点击确定完成过滤
+        webDriver.findElement(By.xpath("//*[@id=\"ZmMsgDialog_button2_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击删除过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"zb__FRV__REMOVE_FILTER_RULE_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击确定删除过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"YesNoMsgDialog_button5_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        webDriver.get(url);
+    }
 }
