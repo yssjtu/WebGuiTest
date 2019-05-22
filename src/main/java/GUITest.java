@@ -54,8 +54,8 @@ public class GUITest {
         webDriver.findElement(By.xpath("//*[@id=\"submit-button\"]"))
                 .click();
 
-//        Briefcase(webDriver, url, picture);
-//        Options(webDriver, url);
+        Briefcase(webDriver, url, picture);
+        Options(webDriver, url);
         Contacts(webDriver,url);
     }
 
@@ -104,6 +104,133 @@ public class GUITest {
         Thread.sleep(3000);
         webDriver.get(url);
         Thread.sleep(1000);
+
     }
 
+    private static void Briefcase(WebDriver webDriver, String url, String picture) throws InterruptedException {
+        Thread.sleep(3000);
+        //点击公文包
+        webDriver.findElement(By.xpath("//*[@id=\"zb__App__Briefcase_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击上传文件
+        webDriver.findElement(By.xpath("//*[@id=\"zb__BDLV-main__NEW_FILE_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //上传图片
+        webDriver.findElement(By.name("uploadFile"))
+                .sendKeys(picture);
+        Thread.sleep(2000);
+        //输入备注
+        webDriver.findElement(By.tagName("textarea"))
+                .sendKeys("test jpg");
+        Thread.sleep(2000);
+        //点击确定
+        List<WebElement> webElements = webDriver.findElement(By.className("DwtDialogButtonBar"))
+                .findElements(By.className("ZWidgetTitle"));
+        webElements.get(0).click();
+        Thread.sleep(5000);
+        //点击选中第一个文件
+        webDriver.findElement(By.xpath("//*[@id=\"zlhi__BDLV-main__se\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击删除
+        webDriver.findElement(By.xpath("//*[@id=\"zb__BDLV-main__DELETE_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击确定
+        webDriver.findElement(By.xpath("//*[@id=\"CONFIRM_DIALOG_button5_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击已删除邮件
+        webDriver.findElement(By.xpath("//*[@id=\"zti__main_Briefcase__3_textCell\"]"))
+                .click();
+        Thread.sleep(2000);
+        //
+        webDriver.findElement(By.xpath("//*[@id=\"zlhi__BDLV-main__se\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击永久删除
+        webDriver.findElement(By.xpath("//*[@id=\"zb__BDLV-main__DELETE_title\"]"))
+                .click();
+        Thread.sleep(1000);
+        //点击确定
+        webDriver.findElement(By.xpath("//*[@id=\"CONFIRM_DIALOG_button5_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        webDriver.get(url);
+    }
+
+    private static void Options(WebDriver webDriver, String url) throws InterruptedException {
+        Thread.sleep(3000);
+        //点击首选项
+        webDriver.findElement(By.xpath("//*[@id=\"zb__App__Options_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"zti__main_Options__PREF_PAGE_FILTERS_textCell\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击创建过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"zb__FRV__ADD_FILTER_RULE_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //输入过滤器名称
+        webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_name\"]"))
+                .sendKeys("律师函");
+        Thread.sleep(2000);
+        //输入筛选条件
+        webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_conditions\"]/tbody/tr/td[4]/div/input"))
+                .sendKeys("cxk");
+        Thread.sleep(2000);
+        //点击创建新的筛选条件
+        webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_conditions\"]/tbody/tr/td[6]/table/tbody/tr/td[1]"))
+                .click();
+        Thread.sleep(2000);
+        //输入新的筛选条件
+        webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_conditions\"]/tbody/tr[2]/td[4]/div/input"))
+                .sendKeys("ikun");
+        Thread.sleep(2000);
+        //点击确定创建过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_button2_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击移除过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"DwtChooserRemoveButton_1_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击添加可用过滤器中的待选过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"DwtChooserButton_1_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击运行过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"zb__FRV__RUN_FILTER_RULE_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击添加第一个筛选选项
+        webDriver.findElement(By.xpath("//*[@id=\"zti__ZmFilterRulesController_incoming__2_checkbox\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击添加第二个筛选选项
+        webDriver.findElement(By.xpath("//*[@id=\"zti__ZmFilterRulesController_incoming__5_checkbox\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击确定开始运行过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"ChooseFolderDialog_button2_title\"]"))
+                .click();
+        Thread.sleep(5000);
+        //点击确定完成过滤
+        webDriver.findElement(By.xpath("//*[@id=\"ZmMsgDialog_button2_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击删除过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"zb__FRV__REMOVE_FILTER_RULE_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //点击确定删除过滤器
+        webDriver.findElement(By.xpath("//*[@id=\"YesNoMsgDialog_button5_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        webDriver.get(url);
+    }
 }
