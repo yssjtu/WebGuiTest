@@ -96,7 +96,7 @@ public class GUITest {
         Thread.sleep(1000);
         //对邮件标记、设为未读
         webDriver.findElement(By.xpath("//*[@id=\"zl__TV-main__rows\"]/li[1]/div/div[2]/div[3]/div/div")).click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         webDriver.findElement(By.xpath("//*[@id=\"zl__TV-main__rows\"]/li[1]/div/div/div[2]/div")).click();
         Thread.sleep(1000);
         //浏览前三封邮件
@@ -121,6 +121,12 @@ public class GUITest {
         subject.sendKeys("将要被你玩弄的一封邮件");
         Thread.sleep(100);
         content.sendKeys("赶紧去测试 !!!");
+
+        Thread.sleep(2000);
+        webDriver.findElement(By.xpath("//*[@id=\"zb__COMPOSE-1__SAVE_DRAFT_title\"]")).click();
+        Thread.sleep(2000);
+//        webDriver.findElement(By.xpath("//*[@id=\"YesNoCancel_button4_title\"]")).click();
+//        Thread.sleep(2000);
 
         // 刷新页面
         webDriver.get(url);
@@ -307,9 +313,9 @@ public class GUITest {
                 .click();
         Thread.sleep(2000);
         //鼠标拖动来选定时间
-        Actions action=new Actions(webDriver);
+        Actions action = new Actions(webDriver);
         action.moveToElement(webDriver.findElement(By.xpath("//*[@id=\"DWT89\"]"))).
-                moveByOffset(0,500).clickAndHold().moveByOffset(0,-200).release().perform();
+                moveByOffset(0, 500).clickAndHold().moveByOffset(0, -200).release().perform();
 
         webDriver.findElement(By.xpath("//*[@id=\"DWT110\"]/input"))
                 .sendKeys("看唱跳rap和打篮球");
