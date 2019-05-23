@@ -5,9 +5,11 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class GUITest {
 
@@ -46,14 +48,16 @@ public class GUITest {
                 .sendKeys(password);
         webDriver.findElement(By.xpath("//*[@id=\"captcha\"]"))
                 .click();
-        Thread.sleep(7000);
+        Thread.sleep(6000);
         webDriver.findElement(By.xpath("//*[@id=\"submit-button\"]"))
                 .click();
 
+
         Briefcase(webDriver, url, picture);
         Options(webDriver, url);
-        Contacts(webDriver,url);
+        Contacts(webDriver, url);
         testMail(webDriver, url);
+        Calendar(webDriver,url);
 
     }
 
@@ -123,7 +127,7 @@ public class GUITest {
         Thread.sleep(1000);
     }
 
-    public static void Contacts(WebDriver webDriver,String url)  throws InterruptedException {
+    public static void Contacts(WebDriver webDriver, String url) throws InterruptedException {
         Thread.sleep(3000);
         webDriver.findElement(By.xpath("//*[@id=\"zb__App__Contacts_title\"]"))
                 .click();
@@ -294,5 +298,60 @@ public class GUITest {
                 .click();
         Thread.sleep(2000);
         webDriver.get(url);
+    }
+
+    private static void Calendar(WebDriver webDriver, String url) throws InterruptedException {
+        Thread.sleep(3000);
+        //点击日历
+        webDriver.findElement(By.xpath("//*[@id=\"zb__App__Calendar_title\"]"))
+                .click();
+        Thread.sleep(2000);
+        //鼠标拖动来选定时间
+        Actions action=new Actions(webDriver);
+        action.moveToElement(webDriver.findElement(By.xpath("//*[@id=\"DWT89\"]"))).
+                moveByOffset(0,500).clickAndHold().moveByOffset(0,-200).release().perform();
+
+        webDriver.findElement(By.xpath("//*[@id=\"DWT110\"]/input"))
+                .sendKeys("看唱跳rap和打篮球");
+
+        Thread.sleep(1000);
+        webDriver.findElement(By.xpath("//*[@id=\"DWT113\"]/input"))
+                .sendKeys("bilibili");
+        Thread.sleep(1000);
+        //选定有空
+        webDriver.findElement(By.xpath("//*[@id=\"DWT116_dropdown\"]/div"))
+                .click();
+        Thread.sleep(1000);
+       action.moveToElement(webDriver.findElement(By.xpath("//*[@id=\"DWT116_title\"]"))).moveByOffset(0,20)
+                .click().perform();
+
+       //创建约会
+        webDriver.findElement(By.xpath("//*[@id=\"DWT109_button2_title\"]"))
+                .click();
+        Thread.sleep(5000);
+        //双击约会进入详细页面
+        action.moveToElement(webDriver.findElement(By.xpath("//*[@id=\"DWT89\"]"))).moveByOffset(0,400).doubleClick().perform();
+
+        //编辑详情
+        Thread.sleep(2000);
+        webDriver.findElement(By.xpath("//*[@id=\"ZmHtmlEditor1_body\"]")).sendKeys("鸡你太美");
+        //保存并关闭
+        Thread.sleep(2000);
+        action.moveToElement(webDriver.findElement(By.xpath("//*[@id=\"zb__APPT-1__SAVE_title\"]"))).click().perform();
+
+        //删除刚刚创建的约会
+        Thread.sleep(2000);
+        action.sendKeys(Keys.BACK_SPACE).perform();
+        Thread.sleep(2000);
+        action.sendKeys(Keys.ENTER).perform();
+        Thread.sleep(3000);
+
+        webDriver.get(url);
+
+
+
+//        Thread.sleep(1000);
+//        action.moveToElement(webDriver.findElement(By.xpath("//*[@class=\"Row RowEven RowEven Row-selected\"]"))).doubleClick().perform();
+
     }
 }
