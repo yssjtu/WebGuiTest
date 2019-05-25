@@ -53,11 +53,11 @@ public class GUITest {
                 .click();
 
 
-        Briefcase(webDriver, url, picture);
-        Options(webDriver, url);
         Contacts(webDriver, url);
         testMail(webDriver, url);
         Calendar(webDriver,url);
+        Briefcase(webDriver, url, picture);
+        Options(webDriver, url);
 
     }
 
@@ -249,11 +249,11 @@ public class GUITest {
         Thread.sleep(2000);
         //输入过滤器名称
         webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_name\"]"))
-                .sendKeys("律师函");
+                .sendKeys("test");
         Thread.sleep(2000);
         //输入筛选条件
         webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_conditions\"]/tbody/tr/td[4]/div/input"))
-                .sendKeys("cxk");
+                .sendKeys("a");
         Thread.sleep(2000);
         //点击创建新的筛选条件
         webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_conditions\"]/tbody/tr/td[6]/table/tbody/tr/td[1]"))
@@ -261,7 +261,7 @@ public class GUITest {
         Thread.sleep(2000);
         //输入新的筛选条件
         webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_conditions\"]/tbody/tr[2]/td[4]/div/input"))
-                .sendKeys("ikun");
+                .sendKeys("i");
         Thread.sleep(2000);
         //点击确定创建过滤器
         webDriver.findElement(By.xpath("//*[@id=\"ZmFilterRuleDialog_button2_title\"]"))
